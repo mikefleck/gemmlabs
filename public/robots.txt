@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://gemmlabs.com/sitemap.xml
