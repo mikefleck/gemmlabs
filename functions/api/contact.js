@@ -47,9 +47,12 @@ export async function onRequestPost({ request, env }) {
   });
 
   if (!r.ok) {
-    const detail = await r.text().catch(() => "");
-    console.error("Resend error", r.status, detail);
-    return json(502, { error: "We couldn't send that right now. Call or email us instead." });
+    const raw = await r.text().catch(() => "");
+    console.error("Resend error", r.status, raw);
+    let detail = "";
+    try { detail = JSON.parse(raw).message || ""; } catch {}
+    // 500 instead of 502: Cloudflare replaces origin 502s with its own HTML error page.
+    return json(500, { error: "We couldn't send that right now. Call or email us instead.", detail });
   }
   return json(200, { ok: true });
 }
