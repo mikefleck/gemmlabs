@@ -449,7 +449,7 @@ footer .copy{grid-column:1/-1;border-top:1px solid var(--line);padding-top:20px;
     e.preventDefault(); err.hidden=true; btn.disabled=true; btn.textContent='Sending\u2026';
     var data={}; new FormData(f).forEach(function(v,k){data[k]=v});
     fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
-      .then(function(r){return r.ok?r.json():r.json().then(function(j){throw new Error(j.error||'Send failed')})})
+      .then(function(r){return r.ok?r.json():r.json().then(function(j){throw new Error((j.error||'Send failed')+(j.detail?' ('+j.detail+')':''))})})
       .then(function(){f.classList.add('sent');f.reset();})
       .catch(function(x){err.textContent=x.message||'Something went wrong. Call or email us instead.';err.hidden=false;})
       .finally(function(){btn.disabled=false;btn.textContent='Start a conversation';});
