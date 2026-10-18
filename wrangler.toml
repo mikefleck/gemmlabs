@@ -1,3 +1,7 @@
 name = "gemmlabs"
 compatibility_date = "2026-01-01"
 pages_build_output_dir = "public"
+
+[vars]
+CONTACT_TO = "mike@gemmlabs.com"
+CONTACT_FROM = "GEMM LABS <hello@gemmlabs.com>"
